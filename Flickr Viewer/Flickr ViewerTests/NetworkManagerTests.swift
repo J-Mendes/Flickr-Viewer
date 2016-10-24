@@ -49,12 +49,42 @@ class NetworkManagerTests: XCTestCase {
         waitForExpectations(timeout: 60.0, handler: nil)
     }
     
+    internal func testFindPeopleRequestWithError() {
+        let requestExpectation: XCTestExpectation = expectation(description: "Find people by username with error")
+        
+        self.manager?.findPeopleByUsername(username: "eyetwis", result: { (response: [String : AnyObject], error: Error?) in
+            if error == nil {
+                XCTAssertTrue(response.keys.contains("stat") && (response["stat"] as! String) == "fail")
+            } else {
+                XCTFail()
+            }
+            requestExpectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 60.0, handler: nil)
+    }
+    
     internal func testPublicPhotosRequest() {
         let requestExpectation: XCTestExpectation = expectation(description: "Get user public photos")
         
         self.manager?.getPublicPhotos(userId: "49191827@N00", page: 1, result: { (response: [String : AnyObject], error: Error?) in
             if error == nil {
                 XCTAssertTrue(response.keys.contains("stat"))
+            } else {
+                XCTFail()
+            }
+            requestExpectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 60.0, handler: nil)
+    }
+    
+    internal func testPublicPhotosRequestWithError() {
+        let requestExpectation: XCTestExpectation = expectation(description: "Get user public photos with error")
+        
+        self.manager?.getPublicPhotos(userId: "", page: 1, result: { (response: [String : AnyObject], error: Error?) in
+            if error == nil {
+                XCTAssertTrue(response.keys.contains("stat") && (response["stat"] as! String) == "fail")
             } else {
                 XCTFail()
             }
@@ -79,12 +109,42 @@ class NetworkManagerTests: XCTestCase {
         waitForExpectations(timeout: 60.0, handler: nil)
     }
     
+    internal func testPhotoInfoRequestWithError() {
+        let requestExpectation: XCTestExpectation = expectation(description: "Get photo infos with error")
+        
+        self.manager?.getPhotoInfo(photoId: "", photoSecret: "", result: { (response: [String : AnyObject], error: Error?) in
+            if error == nil {
+                XCTAssertTrue(response.keys.contains("stat") && (response["stat"] as! String) == "fail")
+            } else {
+                XCTFail()
+            }
+            requestExpectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 60.0, handler: nil)
+    }
+    
     internal func testPhotoSizesRequest() {
         let requestExpectation: XCTestExpectation = expectation(description: "Get photo sizes")
         
         self.manager?.getPhotoSizes(photoId: "29894003064", result: { (response: [String : AnyObject], error: Error?) in
             if error == nil {
                 XCTAssertTrue(response.keys.contains("stat"))
+            } else {
+                XCTFail()
+            }
+            requestExpectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 60.0, handler: nil)
+    }
+    
+    internal func testPhotoSizesRequestWithError() {
+        let requestExpectation: XCTestExpectation = expectation(description: "Get photo sizes with error")
+        
+        self.manager?.getPhotoSizes(photoId: "", result: { (response: [String : AnyObject], error: Error?) in
+            if error == nil {
+                XCTAssertTrue(response.keys.contains("stat") && (response["stat"] as! String) == "fail")
             } else {
                 XCTFail()
             }
