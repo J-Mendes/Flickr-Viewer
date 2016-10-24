@@ -21,4 +21,12 @@ class NetworkManager: NSObject {
         self.session = URLSession.shared
     }
     
+    internal func cancelAllRequests() {
+        self.session.getAllTasks { (tasks: [URLSessionTask]) in
+            tasks.forEach {
+                $0.cancel()
+            }
+        }
+    }
+    
 }
