@@ -16,16 +16,19 @@ class DataManager: NSObject {
     internal let flickrUsername: String = "eyetwist"
     
     internal func getFlickerPhotos(page: UInt, result: @escaping ([Photo], Error?) -> Void) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         NetworkManager.shared.findPeopleByUsername(username: self.flickrUsername) { (response: [String : AnyObject], error: Error?) in
             if error == nil {
                 if response.keys.contains("stat") && (response["stat"] as! String) == "ok" {
                     self.getPublicPhotos(userId: response["user"]?["nsid"] as! String, page: page, result: result)
                 } else {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     DispatchQueue.main.async {
                         result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
                     }
                 }
             } else {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 DispatchQueue.main.async {
                     result([], error)
                 }
@@ -50,16 +53,19 @@ class DataManager: NSObject {
                     if photos.count > 0 {
                         self.getPhotosDetails(photos: photos, result: result)
                     } else {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         DispatchQueue.main.async {
                             result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
                         }
                     }
                 } else {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     DispatchQueue.main.async {
                         result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
                     }
                 }
             } else {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 DispatchQueue.main.async {
                     result([], error)
                 }
@@ -85,6 +91,7 @@ class DataManager: NSObject {
                                             photo.updateSizes(sizesArray: sizesArray)
                                             
                                             if count == 0 {
+                                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                                 DispatchQueue.main.async {
                                                     result(photos, nil)
                                                 }
@@ -92,6 +99,7 @@ class DataManager: NSObject {
                                         } else {
                                             if !hasError {
                                                 hasError = true
+                                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                                 NetworkManager.shared.cancelAllRequests()
                                                 DispatchQueue.main.async {
                                                     result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
@@ -101,6 +109,7 @@ class DataManager: NSObject {
                                     } else {
                                         if !hasError {
                                             hasError = true
+                                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                             NetworkManager.shared.cancelAllRequests()
                                             DispatchQueue.main.async {
                                                 result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
@@ -110,6 +119,7 @@ class DataManager: NSObject {
                                 } else {
                                     if !hasError {
                                         hasError = true
+                                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                         NetworkManager.shared.cancelAllRequests()
                                         DispatchQueue.main.async {
                                             result([], error)
@@ -121,6 +131,7 @@ class DataManager: NSObject {
                         } else {
                             if !hasError {
                                 hasError = true
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                 NetworkManager.shared.cancelAllRequests()
                                 DispatchQueue.main.async {
                                     result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
@@ -130,6 +141,7 @@ class DataManager: NSObject {
                     } else {
                         if !hasError {
                             hasError = true
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             NetworkManager.shared.cancelAllRequests()
                             DispatchQueue.main.async {
                                 result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
@@ -139,6 +151,7 @@ class DataManager: NSObject {
                 } else {
                     if !hasError {
                         hasError = true
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         NetworkManager.shared.cancelAllRequests()
                         DispatchQueue.main.async {
                             result([], error)
