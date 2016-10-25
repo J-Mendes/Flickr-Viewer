@@ -55,7 +55,7 @@ class DataManager: NSObject {
                     } else {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         DispatchQueue.main.async {
-                            result([], NSError(domain: DataManager.Domain, code: -2, userInfo: nil))
+                            result([], NSError(domain: DataManager.Domain, code: -2, userInfo: ["isEnd": true]))
                         }
                     }
                 } else {

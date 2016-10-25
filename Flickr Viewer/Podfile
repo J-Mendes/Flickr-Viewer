@@ -4,6 +4,8 @@ target 'Flickr Viewer' do
   use_frameworks!
 
   # Pods for Flickr Viewer
+  pod 'SDWebImage', '~>3.8'
+  pod 'JGProgressHUD'
 
   target 'Flickr ViewerTests' do
     inherit! :search_paths
