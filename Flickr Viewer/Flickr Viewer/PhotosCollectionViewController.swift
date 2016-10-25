@@ -10,11 +10,16 @@ import UIKit
 
 class PhotosCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    fileprivate enum Segues: String {
+        case PhotoDetails = "detailsSegue"
+    }
+    
     fileprivate var photos: [Photo] = []
     fileprivate var currentPage: UInt = 0
     fileprivate var isLoading: Bool = false
     fileprivate var hasReachedLastPage: Bool = false
     fileprivate var refreshControl: UIRefreshControl!
+    fileprivate var selectedPhotoIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +44,15 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
         // Dispose of any resources that can be recreated.
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == Segues.PhotoDetails.rawValue {
+            (segue.destination as! PhotoDetailsTableViewController).photo = self.photos[self.selectedPhotoIndex]
+        }
     }
-    */
+    
 
     // MARK: UICollectionViewDataSource
 
@@ -95,7 +100,8 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: show detail view
+        self.selectedPhotoIndex = indexPath.row
+        self.performSegue(withIdentifier: Segues.PhotoDetails.rawValue, sender: self)
         collectionView.deselectItem(at: indexPath, animated: true)
     }
     

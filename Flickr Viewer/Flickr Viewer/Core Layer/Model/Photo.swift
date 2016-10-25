@@ -116,8 +116,32 @@ class Photo: NSObject {
                 self.imageUrl = $0["source"] as! String
             }
         }
+    }
+    
+    internal func getPlace() -> String {
+        var place: String = ""
         
+        if self.place != "" {
+            place += self.place
+        }
         
+        if self.local != "" {
+            place += (place == "" ? "" : ", ") + self.local
+        }
+        
+        if self.county != "" {
+            place += (place == "" ? "" : ", ") + self.county
+        }
+        
+        if self.region != "" {
+            place += (place == "" ? "" : ", ") + self.region
+        }
+        
+        if self.country != "" {
+            place += (place == "" ? "" : ", ") + self.country
+        }
+        
+        return place
     }
     
 }

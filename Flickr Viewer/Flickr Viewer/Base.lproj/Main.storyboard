@@ -10,7 +10,7 @@
         <scene sceneID="mqz-Bw-47V">
             <objects>
                 <collectionViewController id="pPY-xe-HL5" customClass="PhotosCollectionViewController" customModule="Flickr_Viewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" prefetchingEnabled="NO" id="tE5-tc-3aa">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" prefetchingEnabled="NO" id="tE5-tc-3aa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,10 +36,32 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="tOf-oG-H0I"/>
+                    <connections>
+                        <segue destination="w9K-dy-8sh" kind="show" identifier="detailsSegue" id="izs-Zc-K4e"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jfb-V7-vh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1359.2" y="181.25937031484258"/>
+        </scene>
+        <!--Photo Details Table View Controller-->
+        <scene sceneID="Ejx-ZJ-ITX">
+            <objects>
+                <tableViewController id="w9K-dy-8sh" customClass="PhotoDetailsTableViewController" customModule="Flickr_Viewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="z2K-Y9-zCw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <connections>
+                            <outlet property="dataSource" destination="w9K-dy-8sh" id="dgc-Em-cwa"/>
+                            <outlet property="delegate" destination="w9K-dy-8sh" id="b4z-ol-OV7"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qop-dU-Dcj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2292" y="181"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EGX-M3-Xrb">

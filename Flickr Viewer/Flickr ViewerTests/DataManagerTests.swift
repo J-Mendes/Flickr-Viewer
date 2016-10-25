@@ -52,4 +52,15 @@ class DataManagerTests: XCTestCase {
         waitForExpectations(timeout: 240.0, handler: nil)
     }
     
+    internal func testFlickerPhotosEmptyData() {
+        let requestExpectation: XCTestExpectation = expectation(description: "Flicker photos empty data")
+        
+        self.manager?.getFlickerPhotos(page: UInt.max, result: { (response: [Photo], error: Error?) in
+            XCTAssertTrue(error != nil && (error as! NSError).userInfo.keys.contains("isEnd"))
+            requestExpectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 240.0, handler: nil)
+    }
+    
 }
